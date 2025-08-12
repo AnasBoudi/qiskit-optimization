@@ -105,6 +105,8 @@ class GroverOptimizer(OptimizationAlgorithm):
         a_operator.h(qubit_index)
         a_operator.x(starting_vertex)
         a_operator.x(ending_vertex)
+        print(qubit_index)
+        a_operator.draw(output="mpl")
         
         a_operator.compose(quadratic_form, inplace=True)
         return a_operator
