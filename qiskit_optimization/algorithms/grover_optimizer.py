@@ -97,6 +97,8 @@ class GroverOptimizer(OptimizationAlgorithm):
             self._num_value_qubits, quadratic, linear, offset, little_endian=False
         )
 
+        # Change the searching space
+        #===========
         qubit_index = list(range(self._num_key_qubits))
         qubit_index.remove(starting_vertex)
         qubit_index.remove(ending_vertex)
@@ -105,6 +107,7 @@ class GroverOptimizer(OptimizationAlgorithm):
         a_operator.h(qubit_index)
         a_operator.x(starting_vertex)
         a_operator.x(ending_vertex)
+        #===========
         
         a_operator.compose(quadratic_form, inplace=True)
         return a_operator
@@ -190,7 +193,7 @@ class GroverOptimizer(OptimizationAlgorithm):
 
             # Get oracle O and the state preparation operator A for the current threshold.
             problem_.objective.constant = orig_constant - threshold
-            a_operator = self._get_a_operator(qr_key_value, problem_, starting_vertex, ending_vertex)
+            a_operator = self._get_a_operator(qr_key_value, problem_, starting_vertex= starting_vertex, ending_vertex=ending_vertex)
 
             # Iterate until we measure a negative.
             loops_with_no_improvement = 0
