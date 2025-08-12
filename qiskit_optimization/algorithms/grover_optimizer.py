@@ -120,7 +120,7 @@ class GroverOptimizer(OptimizationAlgorithm):
 
         return oracle, is_good_state
 
-    def solve(self, problem: QuadraticProgram) -> OptimizationResult:
+    def solve(self, problem: QuadraticProgram, starting_vertex) -> OptimizationResult:
         """Tries to solve the given problem using the grover optimizer.
 
         Runs the optimizer to try to solve the optimization problem. If the problem cannot be,
