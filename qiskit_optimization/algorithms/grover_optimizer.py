@@ -186,7 +186,7 @@ class GroverOptimizer(OptimizationAlgorithm):
 
             # Get oracle O and the state preparation operator A for the current threshold.
             problem_.objective.constant = orig_constant - threshold
-            a_operator = self._get_a_operator(qr_key_value, problem_)
+            a_operator = self._get_a_operator(qr_key_value, problem_, starting_vertex, ending_vertex)
 
             # Iterate until we measure a negative.
             loops_with_no_improvement = 0
