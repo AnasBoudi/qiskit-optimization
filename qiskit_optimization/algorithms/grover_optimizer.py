@@ -97,10 +97,14 @@ class GroverOptimizer(OptimizationAlgorithm):
             self._num_value_qubits, quadratic, linear, offset, little_endian=False
         )
 
-        a_operator = QuantumCircuit(qr_key_value)
-        a_operator.h(list(range(self._num_key_qubits)))
+        list = list(range(self._num_key_qubits))
+        list.remove(starting_vertex)
+        list.remove(ending_vertex)
 
-        print(list(range(self._num_key_qubits)))
+        a_operator = QuantumCircuit(qr_key_value)
+        a_operator.h(list)
+        a_operator.x(starting_vertex)
+        a_operator.x(ending_vertex)
         
         a_operator.compose(quadratic_form, inplace=True)
         return a_operator
