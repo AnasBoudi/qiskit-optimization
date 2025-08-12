@@ -87,7 +87,7 @@ class GroverOptimizer(OptimizationAlgorithm):
         """
         return QuadraticProgramToQubo.get_compatibility_msg(problem)
 
-    def _get_a_operator(self, qr_key_value, problem):
+    def _get_a_operator(self, qr_key_value, problem, starting_vertex, ending_vertex):
         quadratic = problem.objective.quadratic.to_array()
         linear = problem.objective.linear.to_array()
         offset = problem.objective.constant
@@ -99,6 +99,9 @@ class GroverOptimizer(OptimizationAlgorithm):
 
         a_operator = QuantumCircuit(qr_key_value)
         a_operator.h(list(range(self._num_key_qubits)))
+
+        print(list(range(self._num_key_qubits)))
+        
         a_operator.compose(quadratic_form, inplace=True)
         return a_operator
 
@@ -120,7 +123,7 @@ class GroverOptimizer(OptimizationAlgorithm):
 
         return oracle, is_good_state
 
-    def solve(self, problem: QuadraticProgram, starting_vertex) -> OptimizationResult:
+    def solve(self, problem: QuadraticProgram, starting_vertex: int, ending_vertex: int) -> OptimizationResult:
         """Tries to solve the given problem using the grover optimizer.
 
         Runs the optimizer to try to solve the optimization problem. If the problem cannot be,
